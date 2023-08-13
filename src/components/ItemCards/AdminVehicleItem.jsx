@@ -49,7 +49,7 @@ export default function VehicleItem(props) {
                     objectFit: 'contain',
                     width: '280px',
                 }}
-                image={props.photo ? props.photo : backupImageUrl}
+                image={props.photo.url || props.photo || backupImageUrl}
 
             />
             <CardContent>
