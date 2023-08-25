@@ -17,10 +17,8 @@ export default function StaffFormDialog(props) {
     const handleClickOpen = () => {
         setOpen(true);
     };
-
     const handleClose = () => {
         setOpen(false);
-
     };
 
     const handleRespone = (response) => {
@@ -30,23 +28,40 @@ export default function StaffFormDialog(props) {
         else if (response.data && props.edit) { message = `Successfully updated ${firstName}` }
         else { message = response }
         props.setMessage(message);
+        clearStates();
         props.setOpenDialog(true)
     }
 
     const handleSubmitNew = (e) => {
         e.preventDefault()
-        let newUser = { firstName: firstName, lastName: lastName, email: email, password: password, phone: phone }
-        axios.post('/users/create', newUser, { headers: { 'x-access-token': props.currentUser.token } })
-            .then(response => { handleRespone(response) })
-            .catch(e => { handleRespone(e.response.data.result); console.log(e.message) })
+        // let newUser = { firstName: firstName, lastName: lastName, email: email, password: password, phone: phone }
+        // axios.post('/users/create', newUser, { headers: { 'x-access-token': props.currentUser.token } })
+        //     .then(response => { handleRespone(response) })
+        //     .catch(e => { handleRespone(e.response.data.result); console.log(e.message) })
+        handleClose()
+        clearStates()
+        props.setMessage("Staff can't be added on this demo! :(")
+        props.setOpenDialog(true)
     }
 
     const handleSubmitUpdate = (e) => {
         e.preventDefault()
-        let updatedUser = { firstName: firstName, lastName: lastName, email: email, password: password, phone: phone }
-        axios.put('/users/' + userId, updatedUser, { headers: { 'x-access-token': props.currentUser.token } })
-            .then(response => { handleRespone(response) })
-            .catch(e => { handleRespone(e); console.log(e.response.data.result) })
+        // let updatedUser = { firstName: firstName, lastName: lastName, email: email, password: password, phone: phone }
+        // axios.put('/users/' + userId, updatedUser, { headers: { 'x-access-token': props.currentUser.token } })
+        //     .then(response => { handleRespone(response) })
+        //     .catch(e => { handleRespone(e); console.log(e.response.data.result) })
+        handleClose()
+        clearStates()
+        props.setMessage("Staff details can't be updated on this demo! :(")
+        props.setOpenDialog(true)
+    }
+
+    const clearStates = () => {
+        setFirstName("")
+        setLastName("")
+        setEmail("")
+        setPassword("")
+        setPhone("")
     }
 
     return (

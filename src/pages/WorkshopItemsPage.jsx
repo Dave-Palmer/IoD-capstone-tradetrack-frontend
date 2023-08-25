@@ -3,17 +3,12 @@ import { Header } from '../components/SideBar/Header'
 import { ItemContainer } from '../components/ItemContainer'
 import { Grid } from '@mui/material'
 import ToolItem from '../components/ItemCards/ToolItem'
-import Divider from '@mui/material/Divider';
-import { useProSidebar } from 'react-pro-sidebar'
 import MessageDialog from '../components/Forms/MessageDialog'
 import axios from 'axios'
 import { UserContext } from '../context/userContext'
 import { StyledDivider } from '../components/StyledComponents'
 
-
-
 const WorkshopItemsPage = () => {
-    const { broken } = useProSidebar()
     const [workshopItems, setWorkshopItems] = useState([])
     const [openDialog, setOpenDialog] = useState(false)
     const [message, setMessage] = useState('')

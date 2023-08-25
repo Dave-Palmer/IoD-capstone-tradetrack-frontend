@@ -36,28 +36,37 @@ export default function ItemFormDialog(props) {
         else if (response.data && props.edit) { message = `Successfully updated ${brand} ${type}` }
         else { message = response }
         props.setMessage(message);
-        props.setOpenDialog(true)
+        props.setOpenDialog(true);
+        clearStates()
     }
 
     const handleSubmitNew = (e) => {
         e.preventDefault()
-        const formData = new FormData()
-        formData.append("assignedTo", assignedTo)
-        formData.append("file", image.data)
-        formData.append("brand", brand)
-        formData.append("type", type)
-        formData.append("description", description)
+        // const formData = new FormData()
+        // formData.append("assignedTo", assignedTo)
+        // formData.append("file", image.data)
+        // formData.append("brand", brand)
+        // formData.append("type", type)
+        // formData.append("description", description)
 
-        axios.post('/items/create', formData)
-            .then(response => { handleRespone(response) })
-            .catch(e => { handleRespone(e.message) })
+        // axios.post('/items/create', formData)
+        //     .then(response => { handleRespone(response) })
+        //     .catch(e => { handleRespone(e.message) })
+        handleClose()
+        clearStates()
+        props.setMessage("Items can't be added on this demo! :(")
+        props.setOpenDialog(true)
     }
     const handleSubmitUpdate = (e) => {
         e.preventDefault()
-        let updatedItem = { assignedTo: assignedTo, brand: brand, type: type, description: description }
-        axios.put('/items/' + itemId, updatedItem)
-            .then(response => { handleRespone(response) })
-            .catch(e => { handleRespone(e.message) })
+        // let updatedItem = { assignedTo: assignedTo, brand: brand, type: type, description: description }
+        // axios.put('/items/' + itemId, updatedItem)
+        //     .then(response => { handleRespone(response) })
+        //     .catch(e => { handleRespone(e.message) })
+        handleClose()
+        clearStates()
+        props.setMessage("Items can't be updated on this demo! :(")
+        props.setOpenDialog(true)
     }
     //This creates an object with data from uploaded image and URL to preview it
     const handleFileChange = (e) => {
@@ -66,6 +75,14 @@ export default function ItemFormDialog(props) {
             data: e.target.files[0],
         }
         setImage(img)
+    }
+
+    const clearStates = () => {
+        setAssignTo("")
+        setBrand("")
+        setType("")
+        setDescription("")
+        setImage({ preview: '', data: '' })
     }
 
     return (
@@ -82,7 +99,7 @@ export default function ItemFormDialog(props) {
                             variant="standard"
                             labelId="assignedTo"
                             id="assignedTo"
-                            value={props.workshop ? 'workshop' : assignedTo}
+                            value={assignedTo}
                             onChange={(e) => setAssignTo(e.target.value)}
                             label="AssignedTo"
                             fullWidth

@@ -34,12 +34,18 @@ export default function LoginForm() {
         }
         catch (error) { error.response.data.result ? setErrorMessage(error.response.data.result) : setErrorMessage('Something went wrong') }
     };
+    
+    const handleDemoLogin = async (userType) => {
+        let response = await axios.get(`/users/demo${userType}login`)
+        setEmail(response.data.email)
+        setPassword(response.data.password)
+    }
 
     return (
 
         <Box
             sx={{
-                height: '70vh',
+                minHeight: '70vh',
                 width: '450px',
                 backgroundColor: 'rgb(245,245,245)',
                 display: 'flex',
@@ -55,7 +61,8 @@ export default function LoginForm() {
                 sx={{
                     color: 'rgb(59, 96, 100)',
                     fontSize: '4em',
-                    marginBottom: '60px'
+                    marginBottom: '60px',
+             
                 }}>
                 TradeTrack
             </Typography>
@@ -65,6 +72,7 @@ export default function LoginForm() {
             </Typography>
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                 <TextField
+                    value={email}
                     margin="normal"
                     required
                     color='success'
@@ -76,6 +84,7 @@ export default function LoginForm() {
                     onChange={(e) => { setErrorMessage(''); setEmail(e.target.value) }}
                 />
                 <TextField
+                    value={password}
                     margin="normal"
                     required
                     color='success'
@@ -103,7 +112,31 @@ export default function LoginForm() {
                 >
                     Sign In
                 </Button>
-
+                <Typography color='rgb(59, 96, 100)' textAlign='center'>For Demo purposes, click one to add credentials</Typography>
+                <Box
+                sx={{display: 'flex', justifyContent: 'space-between'}}
+                >
+                <Button
+                    variant="contained"
+                    sx={{
+                        mt: 3, mb: 1, backgroundColor: 'rgb(59, 96, 100)', "&:hover": {
+                        backgroundColor: 'rgb(85, 130, 139)'},
+                           }}
+                    onClick={() => handleDemoLogin("admin")}
+                >
+                    admin credentials
+                </Button>
+                <Button
+                    variant="contained"
+                    sx={{
+                        mt: 3, mb: 1, backgroundColor: 'rgb(59, 96, 100)', "&:hover": {
+                        backgroundColor: 'rgb(85, 130, 139)'},
+                           }}
+                    onClick={() => handleDemoLogin("staff")}
+                >
+                    staff credentials
+                </Button>
+                </Box>
             </Box>
         </Box>
 

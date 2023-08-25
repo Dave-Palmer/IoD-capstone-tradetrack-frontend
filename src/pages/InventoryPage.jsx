@@ -104,6 +104,7 @@ const InventoryPage = () => {
                             setMessage={setMessage}
                             openForm={openWorkshopForm}
                             setOpenForm={setOpenWorkshopForm}
+                            assignedTo={'workshop'}
                         />
                         {allItems.filter((item) => item.assignedTo === 'workshop').map((item) =>
                             <AdminToolItem

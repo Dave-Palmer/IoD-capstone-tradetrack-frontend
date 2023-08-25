@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { Header } from '../components/SideBar/Header'
 import { AlertsContext } from '../context/alertsContext'
 import axios from 'axios'
-import { Box, Paper, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { UserContext } from '../context/userContext'
 
 

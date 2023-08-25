@@ -39,32 +39,41 @@ export default function VehicleFormDialog(props) {
         else if (response.data && props.edit) { message = `Successfully updated ${make} ${model}` }
         else { message = response }
         props.setMessage(message);
-        props.setOpenDialog(true)
+        props.setOpenDialog(true);
+        clearStates()
     }
 
     const handleSubmitNew = (e) => {
         e.preventDefault()
         const formData = new FormData()
-        formData.append("assignedTo", assignedTo)
-        formData.append("make", make)
-        formData.append("model", model)
-        formData.append("plate", plate)
-        formData.append("odo", odo)
-        formData.append("wof", wof)
-        formData.append("rego", rego)
-        formData.append("rucs", rucs)
-        formData.append("file", image.data)
+        // formData.append("assignedTo", assignedTo)
+        // formData.append("make", make)
+        // formData.append("model", model)
+        // formData.append("plate", plate)
+        // formData.append("odo", odo)
+        // formData.append("wof", wof)
+        // formData.append("rego", rego)
+        // formData.append("rucs", rucs)
+        // formData.append("file", image.data)
 
-        axios.post('/vehicles/create', formData)
-            .then(response => { handleRespone(response) })
-            .catch(e => { handleRespone(e.message) })
+        // axios.post('/vehicles/create', formData)
+        //     .then(response => { handleRespone(response) })
+        //     .catch(e => { handleRespone(e.message) })
+        handleClose()
+        clearStates()
+        props.setMessage("Vehicles can't be added on this demo! :(")
+        props.setOpenDialog(true)
     }
     const handleSubmitUpdate = (e) => {
         e.preventDefault()
-        let updatedVehicle = { assignedTo: assignedTo, make: make, model: model, plate: plate, odo: odo, wof: wof, rego: rego, rucs: rucs }
-        axios.put('/vehicles/' + itemId, updatedVehicle)
-            .then(response => { handleRespone(response) })
-            .catch(e => { handleRespone(e.message) })
+        // let updatedVehicle = { assignedTo: assignedTo, make: make, model: model, plate: plate, odo: odo, wof: wof, rego: rego, rucs: rucs }
+        // axios.put('/vehicles/' + itemId, updatedVehicle)
+        //     .then(response => { handleRespone(response) })
+        //     .catch(e => { handleRespone(e.message) })
+        handleClose()
+        clearStates()
+        props.setMessage("Vehicls can't be updated on this demo! :(")
+        props.setOpenDialog(true)
     }
 
     const handleFileChange = (e) => {
@@ -75,6 +84,18 @@ export default function VehicleFormDialog(props) {
             data: e.target.files[0],
         }
         setImage(img)
+    }
+
+    const clearStates = () => {
+        setAssignTo("")
+        setMake("")
+        setModel("")
+        setPlate("")
+        setOdo("")
+        setWof("")
+        setRego("")
+        setRucs("")
+        setImage({ preview: '', data: '' })
     }
 
 

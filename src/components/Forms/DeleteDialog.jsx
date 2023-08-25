@@ -10,9 +10,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function DeleteDialog(props) {
 
     const handleCloseYes = () => {
-        props.handleDelete()
+        // props.handleDelete()
         props.setOpenDeleteDialog(false);
-        props.setMessage(`${props.name} deleted!`)
+        props.setMessage(`${props.name} can't be deleted on this demo! :(`)
         props.setOpenDialog(true)
     };
     const handleCloseCancel = () => {
