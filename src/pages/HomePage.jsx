@@ -9,21 +9,11 @@ import { UserContext } from '../context/userContext'
 const HomePage = () => {
     const { currentUser } = useContext(UserContext)
     const { alerts, setAlerts } = React.useContext(AlertsContext)
-    let itemAlerts = 0
-    let vehicleAlerts = 0
 
-    const alertsCounter = (data) => {
-        let numOfAlerts = data.filter((item) => item.alert === true).length
-        return numOfAlerts
-    }
 
     useEffect(() => {
-        axios('/items')
-            .then(response => { itemAlerts = alertsCounter(response.data.data) })
-            .then(axios('/vehicles')
-                .then(response => { vehicleAlerts = alertsCounter(response.data.data) })
-                .finally(() => setAlerts(itemAlerts + vehicleAlerts))
-                .catch(e => console.log(e)))
+        axios('/items/numalerts')
+            .then(response => { setAlerts(response.data.numOfAlerts) })
             .catch(e => console.log(e))
     }, [])
 

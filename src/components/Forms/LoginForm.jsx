@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import { UserContext } from '../../context/userContext';
 import { useNavigate } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import LoadingSpinner from '../loaderSpinner/LoadingSpinner';
 import axios from 'axios';
 
 export default function LoginForm() {
@@ -14,7 +15,8 @@ export default function LoginForm() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
-    const { currentUser, handleUpdateUser } = useContext(UserContext)
+    const { handleUpdateUser } = useContext(UserContext)
+    const [isLoading, setIsLoading] = useState(false)
 
     const navigate = useNavigate()
 
@@ -36,9 +38,11 @@ export default function LoginForm() {
     };
     
     const handleDemoLogin = async (userType) => {
+        setIsLoading(true)
         let response = await axios.get(`/users/demo${userType}login`)
         setEmail(response.data.email)
         setPassword(response.data.password)
+        setIsLoading(false)
     }
 
     return (
@@ -101,6 +105,7 @@ export default function LoginForm() {
                 </Typography>
 
                 <Button
+                    disabled={isLoading}
                     type="submit"
                     fullWidth
                     variant="contained"
@@ -112,11 +117,17 @@ export default function LoginForm() {
                 >
                     Sign In
                 </Button>
-                <Typography color='rgb(59, 96, 100)' textAlign='center'>For Demo purposes, click one to add credentials</Typography>
+                <Box
+                    sx={{display: "flex", justifyContent:"center", alignItems: "center",  height: '50px'}}
+                >
+                {isLoading ? <LoadingSpinner/> :
+                <Typography color='rgb(59, 96, 100)' textAlign='center'>For Demo purposes, click one to add credentials</Typography>}
+                </Box>
                 <Box
                 sx={{display: 'flex', justifyContent: 'space-between'}}
                 >
                 <Button
+                    disabled={isLoading}
                     variant="contained"
                     sx={{
                         mt: 3, mb: 1, backgroundColor: 'rgb(59, 96, 100)', "&:hover": {
@@ -127,6 +138,7 @@ export default function LoginForm() {
                     admin credentials
                 </Button>
                 <Button
+                    disabled={isLoading}
                     variant="contained"
                     sx={{
                         mt: 3, mb: 1, backgroundColor: 'rgb(59, 96, 100)', "&:hover": {

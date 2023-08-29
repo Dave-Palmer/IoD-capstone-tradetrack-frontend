@@ -19,11 +19,11 @@ const AlertsPage = (props) => {
 
 
     useEffect(() => {
-        axios('/items')
-            .then(response => { setItems(response.data.data.filter((item) => item.alert === true)) })
+        axios('/items/reporteditems')
+            .then(response => {console.log(response.data.data); setItems(response.data.data)})
             .catch((e) => console.log(e))
-        axios('/vehicles')
-            .then(response => { setVehicles(response.data.data.filter((vehicle) => vehicle.alert === true)) })
+        axios('/vehicles/reportedvehicles')
+            .then(response => setVehicles(response.data.data))
             .catch((e) => console.log(e))
 
     }, [openDialog])
@@ -53,7 +53,7 @@ const AlertsPage = (props) => {
                 <StyledDivider />
                 <Grid>
                     <ItemContainer containerName="Workshop Items">
-                        {items && items.filter(item => item.assignedTo === 'workshop').map(item =>
+                        {items.filter(item => item.assignedTo === 'workshop').map(item =>
                             <ToolItem
                                 key={item._id}
                                 userType='admin'
