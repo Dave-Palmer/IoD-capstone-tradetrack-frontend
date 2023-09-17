@@ -74,7 +74,7 @@ export default function LoginForm() {
             <Typography color='rgb(59, 96, 100)' component="h2" variant="h5">
                 Please Login
             </Typography>
-            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, p:2 }}>
                 <TextField
                     value={email}
                     margin="normal"
