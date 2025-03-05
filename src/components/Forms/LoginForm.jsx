@@ -29,6 +29,7 @@ export default function LoginForm() {
         let loggedInUser = null;
 
         try {
+            setIsLoading(true)
             let response = await axios.post('/users/user/login', { email: email, password: password })
             loggedInUser = response.data.data
             handleUpdateUser(loggedInUser)

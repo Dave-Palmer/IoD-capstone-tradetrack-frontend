@@ -15,7 +15,7 @@ export const AppRoutes = (props) => {
         <div className='mainContainer'>
         <Routes>
             <Route exact path='/login' element={<LoginPage {...props} />} />
-            <Route exact path='/home' element={<ProtectedAdminRoute><HomePage {...props} /></ProtectedAdminRoute>} />
+            <Route exact path='/home' element={<HomePage {...props} />} />
             <Route exact path='/staff' element={<ProtectedAdminRoute><StaffPage {...props} /></ProtectedAdminRoute>} />
             <Route exact path='/inventory' element={<ProtectedAdminRoute><InventoryPage {...props} /></ProtectedAdminRoute>} />
             <Route exact path='/alerts' element={<ProtectedAdminRoute><AlertsPage {...props} /></ProtectedAdminRoute>} />
